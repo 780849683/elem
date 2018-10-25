@@ -1,5 +1,5 @@
 @extends("user.layouts.main")
-@section("title","用户添加")
+@section("title","用户登录")
 @section("content")
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
@@ -12,16 +12,16 @@
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="password" placeholder="密码" name="password" value="{{old("password")}}">
+                <input type="password" class="form-control" id="password" placeholder="密码" name="password" value="">
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">邮箱</label>
-            <div class="col-sm-2">
-                <input type="email" class="form-control" id="email" placeholder="密码" name="email" value="{{old("email")}}">
-            </div>
-        </div>
+        {{--<div class="form-group">--}}
+            {{--<label for="password" class="col-sm-2 control-label">邮箱</label>--}}
+            {{--<div class="col-sm-2">--}}
+                {{--<input type="email" class="form-control" id="email" placeholder="密码" name="email" value="{{old("email")}}">--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         {{--<div class="form-group">--}}
         {{--<label for="logo" class="col-sm-2 control-label">头像</label>--}}

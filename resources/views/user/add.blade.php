@@ -17,6 +17,13 @@
         </div>
 
         <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">确认密码</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="password" placeholder="确认密码" name="password_confirmation" value="{{old("password")}}">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="password" class="col-sm-2 control-label">邮箱</label>
             <div class="col-sm-2">
                 <input type="email" class="form-control" id="email" placeholder="邮箱" name="email" value="{{old("email")}}">

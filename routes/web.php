@@ -24,13 +24,13 @@ Route::get('/', function () {
 //
 //});
 
-
+// 商户
 Route::domain("shop.elem.test")->namespace("User")->group(function () {
     //endregion
     //region 用户列表
     Route::get("user/index", "UserController@index")->name("shop.user.index");
     Route::any("user/add", "UserController@add")->name("user.add");
-    Route::any("user/login", "UserController@login")->name("shop.user.login");
+    Route::any("user/login", "UserController@login")->name("user.login");
     //endregion
 
 
@@ -38,6 +38,8 @@ Route::domain("shop.elem.test")->namespace("User")->group(function () {
 
 
 //Route::get("shop.index","ShopController@index")->name("shop.index");
+
+// 店铺
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
 
 
@@ -45,8 +47,8 @@ Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
     Route::get("shop/index", "ShopController@index")->name("shop.index");
     //endregion
     //region 用户列表
-    Route::get("user/index", "UserController@index")->name("shop.user.index");
-    Route::any("user/login", "UserController@login")->name("shop.user.login");
+    Route::any("shop/add", "ShopController@add")->name("shop.add");
+
     //endregion
 
 

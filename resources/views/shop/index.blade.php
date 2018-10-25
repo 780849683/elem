@@ -62,7 +62,7 @@
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->name}}</td>
                 <td>{{$shop->user->name}}</td>
-                <td>{{$shop->img}}</td>
+                <td align="" class="first-cell"><span><img src="/{{$shop->img}}" width="100"  height="50" /></span></td>
                 <td>@if($shop->brand)
                         <i class="glyphicon glyphicon-ok" style="color: green"></i>
                     @else
