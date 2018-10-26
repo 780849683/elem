@@ -28,9 +28,6 @@ class CreateShopsTable extends Migration
             $table->string('notice')->comment("店铺公告");
             $table->string('discount')->comment("优惠信息");
 
-
-
-
         });
     }
 

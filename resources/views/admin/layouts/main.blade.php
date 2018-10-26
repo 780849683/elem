@@ -19,17 +19,17 @@
 </head>
 <body>
 
-{{--引入头部--}}@include("layouts._header")
+{{--引入头部--}}@include("admin.layouts._header")
 
-{{--引入错误提示--}}@include("layouts._error")
+{{--引入错误提示--}}@include("admin.layouts._error")
 
-{{--引入消息提示--}}@include("layouts._msg")
+{{--引入消息提示--}}@include("admin.layouts._msg")
 
 <div class="container-fluid">
 
 {{--占位--}}@yield("content")
 
-{{--引入尾部--}}@include("layouts._footer")
+{{--引入尾部--}}@include("admin.layouts._footer")
 
 
 </div>

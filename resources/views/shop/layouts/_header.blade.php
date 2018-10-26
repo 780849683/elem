@@ -36,8 +36,8 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="{{route("user.add")}}">商户注册 <span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="{{route("user.login")}}">商户登录 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="">{{Auth::user()->name}}<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="{{route("user.logout")}}">退出登录 <span class="sr-only">(current)</span></a></li>
 
             </ul>
         </div><!-- /.navbar-collapse -->

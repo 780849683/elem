@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Models;
-
-use App\Http\Controllers\Shop\ShopController;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-class user extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Authenticatable
 {
-    public function shops(){
-        return $this->hasMany(shop::class,"user_id");
+    public function shop(){
+        return $this->hasMany(Shop::class,"user_id");
     }
+
     protected $hidden = [
         'password', 'remember_token',
     ];

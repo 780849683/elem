@@ -1,34 +1,27 @@
-@extends("user.layouts.main")
-@section("title","用户添加")
+@extends("admin.layouts.main")
+@section("title","管理员登录")
 @section("content")
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="name" placeholder="用户名" name="name" value="{{old("name")}}">
+                <input type="text" class="form-control" id="name" placeholder="用户名" name="name" value="{{old('name')}}" >
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="password" placeholder="密码" name="password" value="{{old("password")}}">
+                <input type="password" class="form-control" id="password" placeholder="密码" name="password" value="">
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">确认密码</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" id="password" placeholder="确认密码" name="password_confirmation" value="{{old("password")}}">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">邮箱</label>
-            <div class="col-sm-2">
-                <input type="email" class="form-control" id="email" placeholder="邮箱" name="email" value="{{old("email")}}">
-            </div>
-        </div>
+        {{--<div class="form-group">--}}
+            {{--<label for="password" class="col-sm-2 control-label">邮箱</label>--}}
+            {{--<div class="col-sm-2">--}}
+                {{--<input type="email" class="form-control" id="email" placeholder="密码" name="email" value="{{old("email")}}">--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         {{--<div class="form-group">--}}
         {{--<label for="logo" class="col-sm-2 control-label">头像</label>--}}
@@ -47,11 +40,17 @@
         {{--</div>--}}
         {{--</div>--}}
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">注册</button>
+        <div class="">
+            <div class="col-sm-offset-2 col-sm-1">
+                <button type="submit" class="btn btn-default">登录</button>
             </div>
         </div>
+        {{--<div class="">--}}
+            {{--<div class=" ">--}}
+                {{--<button type="submit" class="btn btn-default" value="{{route("user.add")}}">注册</button>--}}
+                {{--<button  class="btn btn-default" onclick="location.href='admin/add'" type="button"> 添加管理员</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </form>
 
 @endsection

@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Shop\ShopController;
 use Illuminate\Database\Eloquent\Model;
 
-class shop_cate extends Model
+class ShopCate extends Model
 {
-    public function shop(){
-        return $this->hasMany(shop::class,"cate_id");
+    public function shops(){
+       return $this->hasMany(Shop::class,"cate_id");
     }
 
     public $timestamps = false;
     protected $fillable=["name","img","status","remember_token"];
-
 }
