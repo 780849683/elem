@@ -15,9 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
 // 店铺  Shop
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
     #----  商  户  ----#
@@ -34,7 +31,13 @@ Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
         #修改店铺
         Route::any("shop/edit/{id}", "ShopController@edit")->name("shop.edit");
 
+    #----  菜品分类  ----#
+        # 分类首页
+       Route::any("menucate/index", "MenuCateController@index")->name("shop.menucate.index");
 
+    #----   菜品   ----#
+        # 菜品首页
+        Route::any("menu/index", "MenuController@index")->name("shop.menu.index");
 });
 
 

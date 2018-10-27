@@ -8,8 +8,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">php0620</a>
-        </div>
+            <b class="navbar-brand" style="color: coral" ><?php $user = Auth::user();$shop = $user->shop;echo $shop[0]->name?></b>
+            </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -17,15 +17,16 @@
                 <li class="active"><a href="">关于我们 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">帮助</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="{{route("shop.menucate.index")}}">菜品分类管理</a></li>
+                        <li><a href="{{route("shop.menu.index")}}">菜品管理</a></li>
+
+                        {{--<li><a href="#">Something else here</a></li>--}}
+                        {{--<li role="separator" class="divider"></li>--}}
+                        {{--<li><a href="#">Separated link</a></li>--}}
+                        {{--<li role="separator" class="divider"></li>--}}
+                        {{--<li><a href="#">One more separated link</a></li>--}}
                     </ul>
                 </li>
             </ul>
@@ -39,8 +40,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            {{--<li><a href="{{route("shop.user.edit")}}">修改密码</a></li>--}}
-                            {{--<li><a href="{{ route("shop.user.logout")}}">注销...</a></li>--}}
+                            <li><a href="">修改密码</a></li>   {{--{{route("shop.user.edit")}}--}}
+                            <li><a href="}">注销...</a></li>    {{--{{ route("shop.user.logout")}--}}
                         </ul>
             </ul>
         </div><!-- /.navbar-collapse -->

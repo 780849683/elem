@@ -67,9 +67,13 @@ class UserController extends BaseController
                             }
                         }
                   }
+            }else{
+                return back()->withInput()->with("danger","用户名或密码错误");
             }
         }
 
         return view("shop.user.login");
     }
+
+
 }
