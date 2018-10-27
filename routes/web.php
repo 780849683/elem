@@ -16,54 +16,69 @@ Route::get('/', function () {
 });
 
 
-//Route::domain("admin.ele.com")->namespace("Admin")->group(function () {
-//
-//    //商户分类
-//    Route::get("shopCate/index", "ShopCategoryController@index")->name("admin.shopCate.index");
-//
-//
-//});
-
-// 商户  user
-Route::domain("shop.elem.test")->namespace("User")->group(function () {
-
-    //用户登录
-    Route::any("user/login", "UserController@login")->name("user.login");
-    //用户注册
-    Route::any("user/add", "UserController@add")->name("user.add");
-   // 退出登录
-    Route::any("user/logout", "UserController@logout")->name("user.logout");
-
-});
 
 
-// 店铺  shop
+// 店铺  Shop
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
+    #----  商  户  ----#
+        #商户注册
+        Route::any("user/reg","UserController@reg")->name("shop.user.reg");
+        #商户登录
+        Route::any("user/login","UserController@login")->name("shop.user.login");
 
-    //region 店铺首页
-    Route::get("shop/index", "ShopController@index")->name("shop.index");
-    //添加店铺
-    Route::any("shop/add", "ShopController@add")->name("shop.add");
-    //修改店铺
-    Route::any("shop/edit/{id}", "ShopController@edit")->name("shop.edit");
+    #----  店铺  ----#
+        #添加店铺
+        Route::any("shop/add", "ShopController@add")->name("shop.shop.add");
+        #显示店铺
+        Route::any("shop/index", "ShopController@index")->name("shop.shop.index");
+        #修改店铺
+        Route::any("shop/edit/{id}", "ShopController@edit")->name("shop.edit");
+
+
 });
 
 
-#管理员 后台 admin
+#管理员 后台 Admin
 Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
+    #----  后台管理员  ----#
+        #管理员注册
+        Route::any("admin/reg","AdminController@reg")->name("admin.admin.reg");
+        #后台登录
+        Route::any("admin/login","AdminController@login")->name("admin.admin.login");
+        #退出登录
+        Route::any("admin/logout","AdminController@logout")->name("admin.admin.logout");
+        #添加管理员
+         //Route::any("admin/add","AdminController@add")->name("admin.admin.add");
+        # 管理员列表
+        Route::any("admin/index","AdminController@index")->name("admin.admin.index");
+        # 编辑管理员
+        Route::any("admin/edit","AdminController@edit")->name("admin.admin.edit");
 
-    #管理员注册
-    Route::any("admin/reg","AdminController@reg")->name("admin.admin.reg");
-    #后台登录
-    Route::any("admin/login","AdminController@login")->name("admin.admin.login");
-    #添加管理员
-//    Route::any("admin/add","AdminController@add")->name("admin.admin.add");
-    # 管理员列表
-    Route::any("admin/index","AdminController@index")->name("admin.admin.index");
-    # 编辑管理员
-    Route::any("admin/edit","AdminController@edit")->name("admin.admin.edit");
+    #----  店铺管理  ----#
+        # 商铺首页
+        Route::any("shop/index","ShopController@index")->name("admin.shop.index");
+        # 商铺审核
+        Route::any("shop/shenh/{id}","ShopController@shenh")->name("admin.shop.shenh");
+        # 删除商铺
+        Route::any("shop/del/{id}","ShopController@del")->name("admin.shop.del");
 
-    #商铺管理  商铺首页
-    Route::any("shop/index","ShopController@index")->name("admin.shop.index");
+    #----  商户管理  ----#
+        #  商户首页
+        Route::any("user/index","UserController@index")->name("admin.user.index");
+        #  删除商户 ----#
+        Route::get("user/del/{id}","UserController@del")->name("admin.user.del");
+
+    #----  店铺分类 ----#
+        #  分类首页e
+        Route::any("shopcate/index","ShopCateController@index")->name("admin.shopcate.index");
+        #  添加分类
+        Route::any("shopcate/add","ShopCateController@add")->name("admin.shopcate.add");
+        #  分类编辑
+        Route::any("shopcate/edit/{id}","ShopCateController@edit")->name("admin.shopcate.edit");
+        #  分类删除
+        Route::any("shopcate/del/{id}","ShopCateController@del")->name("admin.shopcate.del");
+        #   分类状态
+        Route::any("shopcate/shangxian/{id}","ShopCateController@shangxian")->name("admin.shopcate.shangxian");
+        Route::any("shopcate/xiaxian/{id}","ShopCateController@xiaxian")->name("admin.shopcate.xiaxian");
 
 });

@@ -19,8 +19,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">后台管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">商户管理</a></li>
+                        <li><a href="/user/index">商户管理</a></li>
                         <li><a href="/shop/index">商铺管理</a></li>
+                        <li><a href="/shopcate/index">商铺分类</a></li>
                     </ul>
                 </li>
             </ul>
@@ -32,10 +33,10 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::guard('admin')->user()->name}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.admin.edit")}}">修改资料</a></li>
-                        <li><a href="#">注销...</a></li>
+                        <li><a href="{{route("admin.admin.edit")}}">修改密码</a></li>
+                        <li><a href="{{ route("admin.admin.logout")}}">注销...</a></li>
                     </ul>
                 </li>
                 {{--<li class="active"><a href="#">{{Auth::guard("admin")->user()->name}}<span class="sr-only">(current)</span></a></li>--}}

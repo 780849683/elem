@@ -18,7 +18,7 @@ class AdminController extends BaseController
         if ($request -> isMethod("post")){
             // 表单验证
             $data = $this -> validate($request,[
-                'name' => "required",
+                'name' => "required | unique:admins",
                 'password' => "required",
             ]);
             //dd($data);
@@ -27,7 +27,7 @@ class AdminController extends BaseController
             $data["password"]=bcrypt($data["password"]);
             if(Admin::create($data))
             {
-                return redirect("admin/index");
+                return redirect("admin/login")->with("success","注册成功请登录");
             }
         }
         return view("admin.admin.reg");
@@ -63,42 +63,41 @@ class AdminController extends BaseController
 
     # 编辑管理员
     public function edit(Request $request){
-        dd(123);
+        //得到当前用户对象
+        $admin = Auth::guard('admin')->user();
+       // dd($admin);
         // 判断提交方式
        if ($request ->isMethod("post")){
+
             // 表单验证
             $this->validate($request,[
-                'name' => "required",
                 'old_password' => 'required',
                 'password' => 'required|confirmed'
             ]);
-
-            //得到当前用户对象
-            $admin = Auth::guard('admin')->user();
             $oldPassword = $request ->post('old_password');
             // 判断老密码是否正确
-            if (hash::ckeck($oldPassword,$admin->password)){
+            if (Hash::check($oldPassword,$admin->password)){
                 // 老密码正确 设置新密码
                 $admin->password = Hash::make($request->post("password"));
                 // 保存
                 $admin ->save();
                 //跳转
-                return redirect()->route('admin/login')->with("success","修改成功");
+                return redirect()->route('admin.admin.login')->with("success","修改成功");
             }
             // 旧密码不正确
             return back()->with("danger","旧密码错误");
         }
-        //return view("admin.admin.edit");
+        return view("admin.admin.edit",compact("admin"));
 
     }
 
-
+    # 退出登录
     public function logout()
     {
         //注销
         Auth::guard('admin')->logout();
         //跳转并设置成功提示
-        return redirect()->route("admin.login")->with("success", "成功退出");
+        return redirect()->route("admin.admin.login")->with("success", "成功退出");
     }
 
 }

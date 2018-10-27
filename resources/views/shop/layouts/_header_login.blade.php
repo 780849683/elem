@@ -17,16 +17,11 @@
                 <li class="active"><a href="">关于我们 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">帮助</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
+                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">后台管理 <span class="caret"></span></a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="#">商户管理</a></li>--}}
+                        {{--<li><a href="/shop/index">商铺管理</a></li>--}}
+                    {{--</ul>--}}
                 </li>
             </ul>
             <form class="navbar-form navbar-left">
@@ -35,13 +30,17 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {{--<li><a href="{{route("shop.user.edit")}}">修改密码</a></li>--}}
-                            {{--<li><a href="{{ route("shop.user.logout")}}">注销...</a></li>--}}
-                        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    {{--<a href="{{route("admin.admin.reg")}}" >注册<span class=""></span></a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="{{route("admin.admin.edit")}}">修改密码</a></li>--}}
+                        {{--<li><a href="{{ route("admin.admin.logout")}}">注销...</a></li>--}}
+                    {{--</ul>--}}
+                </li>
+                {{--<li class="active"><a href="#">{{Auth::guard("admin")->user()->name}}<span class="sr-only">(current)</span></a></li>--}}
+                {{--<li class="active"><a href="{{route("admin.logout")}}">退出登录 <span class="sr-only">(current)</span></a></li>--}}
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

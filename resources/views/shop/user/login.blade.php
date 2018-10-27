@@ -1,4 +1,4 @@
-@extends("admin.layouts.main_login")
+@extends("shop.layouts.main_login")
 @section("title","管理员登录")
 @section("content")
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="name" placeholder="用户名" name="name" value="{{old('name')}}" >
+                <input type="text" class="form-control" id="name" placeholder="用户名" name="name" value="{{old("name")}}">
             </div>
         </div>
         <div class="form-group">
@@ -45,12 +45,12 @@
                 <button type="submit" class="btn btn-default">登录</button>
             </div>
         </div>
-        {{--<div class="">--}}
-            {{--<div class=" ">--}}
-                {{--<button type="submit" class="btn btn-default" value="{{route("user.add")}}">注册</button>--}}
-                {{--<button  class="btn btn-default" onclick="location.href='admin/add'" type="button"> 添加管理员</button>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div class="">
+            <div class=" ">
+
+                <button  class="btn btn-default" onclick="location.href='reg'" type="button"> 注册</button>
+            </div>
+        </div>
     </form>
 
 @endsection

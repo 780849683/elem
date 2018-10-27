@@ -23,9 +23,10 @@
                 <td>
                     <a href="" class="btn btn-info">下线</a>
                     {{--<a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除会一并删除用户,确认吗？')">删除</a>--}}
-                    {{--@if($shop->status===0)--}}
-                        {{--<a href="{{route('admin.shop.changeStatus',$shop->id)}}" class="btn btn-success">通审</a>--}}
-                    {{--@endif--}}
+                    <a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" >删除</a>
+                    @if($shop->status===0)
+                        <a href="{{route('admin.shop.shenh',$shop->id)}}" class="btn btn-success">审核</a>
+                    @endif
                 </td>
             </tr>
         @endforeach

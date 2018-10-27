@@ -15,10 +15,10 @@
                 <td>{{$admin->name}}</td>
                 <td>
                 <a href="/admin/edit/{id}" class="btn btn-info" >编辑</a>
-                {{--<a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除会一并删除用户,确认吗？')">删除</a>--}}
-                {{--@if($shop->status===0)--}}
-                {{--<a href="{{route('admin.shop.changeStatus',$shop->id)}}" class="btn btn-success">通审</a>--}}
-                {{--@endif--}}
+                <a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除会一并删除用户,确认吗？')">删除</a>
+                @if($shop->status===0)
+                <a href="{{route('admin.shop.changeStatus',$shop->id)}}" class="btn btn-success">通审</a>
+                @endif
                 </td>
             </tr>
         @endforeach
