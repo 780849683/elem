@@ -23,12 +23,13 @@ conotroller
 ~~~~
 $menus=Menu::      ；//这里不能用  DB：：方法
 ~~~
+
 view
 ~~~
 {{$menu->menu_cate->name}}
 ~~~
 
-
+=======
 
 
 
