@@ -1,3 +1,38 @@
+
+#  10-27 项目day03
+
+###  菜品 菜品分类
+
+#### 关于调用  belongsTo  hasMany 方法
+###### 从属方 menu
+~~~
+
+public function menu_cate()
+    {
+        return $this->belongsTo(MenuCate::class,"cate_id");
+    }
+~~~
+###### 拥有方  menu_cate
+~~~
+public function menu(){
+        return $this->hasMany(Menu::class,"cate_id");
+    }
+~~~
+###### 从属方 menu 调用
+conotroller
+~~~~
+$menus=Menu::      ；//这里不能用  DB：：方法
+~~~
+view
+~~~
+{{$menu->menu_cate->name}}
+~~~
+
+
+
+
+
+
 <<<<<<< HEAD
 # 10-26
 =======
