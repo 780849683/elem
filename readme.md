@@ -1,5 +1,87 @@
 
 
+# 10—28 day04 OSS
+### 开通阿里云oss
+1.登录阿里云网站
+
+2.开通oss(实名认证之后申请半年免费)
+
+3.进入控制器 OSS操作面板
+
+4.新建 bucket 取名 域名 标准存储 公共读
+
+5.执行 命令 安装 ali-oss插件
+~~~
+composer require jacobcyl/ali-oss-storage -vvv
+~~~
+6.修改 app/filesystems.php 添加如何代码
+~~~
+ 'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+
+<?php
+
+return [
+
+    ...此处省略N个代码
+    'disks' => [
+
+      
+       'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => 'LTAI5ccKNuSmXG1z',//账号
+            'access_key'    => 'K4udFHYu1sSkJ9SZsLCvWIOIy5fwAB',//密钥
+            'bucket'        => 'ele666',//空间名称
+            'endpoint'      => 'oss-cn-beijing.aliyuncs.com', // OSS 外网节点或自定义外部域名
+
+        ],
+   
+    ],
+
+];
+~~~
+
+7.修改.env配置文件   设置文件上传驱动为oss
+~~~
+FILESYSTEM_DRIVER=oss
+ALIYUN_OSS_URL=https://elem666.oss-cn-beijing.aliyuncs.com/
+ALIYUNU_ACCESS_ID=LTAI5ccKNuSmXG1z
+ALIYUNU_ACCESS_KEY=K4udFHYu1sSkJ9SZsLCvWIOIy5fwAB
+ALIYUNU_OSS_BUCKET=ele666
+ALIYUNU_OSS_ENDPOINT=oss-cn-beijing.aliyuncs.com
+
+~~~
+
+8. 在改 
+~~~
+
+ 'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+
+ 'oss' => [
+                'driver'        => 'oss',
+                'access_id'     => env("ALIYUNU_ACCESS_ID"),//账号
+                'access_key'    => env("ALIYUNU_ACCESS_KEY"),//密钥
+                'bucket'        => env("ALIYUNU_OSS_BUCKET"),//空间名称
+                'endpoint'      =>env("ALIYUNU_OSS_ENDPOINT"), // OSS 外网节点或自定义外部域名
+    ],
+~~~
+
+
+9.获取图片 及 缩略图
+~~~
+ <img src="{{env("ALIYUN_OSS_URL").$shop->img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
+ ~~~
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
 #  10-27 项目day03
 
 ###  菜品 菜品分类
@@ -586,6 +668,3 @@ DB::table("users")->where("id",$id)->increment("money",$data['money']);
 ~~~
 php artisan migrate --path=/database/xxx
 ~~~
-
-
->>>>>>> ab1a55328a1cc86be6be700a0226810fd79f9a94
