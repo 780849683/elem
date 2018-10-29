@@ -1,7 +1,22 @@
 #  10-29  接口开发
 ### 实现步骤
-              
-              
+1.下载压缩包 dist
+2.把解压出来的文件夹下面的 index.html 和 api.js 复制到 public 下面
+3.在 resources/views 下面建一个 index.blade.php 文件
+4.复制 index.html 中的内容 到  index.blade.php  里面
+5.把路由 web.php 里面的  welcome 改成 index
+~~~
+Route::get('/', function () {
+    return view('index');
+});
+~~~
+5.创建 控制器 api/ShopController
+6.
+~~~
+ >1.参考之前接口文件获取数据    
+ >2.在 public/api.js 写自己的接口链接
+~~~
+7. 在 api.php 中写接口路由              
               
               
               
