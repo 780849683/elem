@@ -10,11 +10,24 @@ use Illuminate\Support\Facades\DB;
 class ShopCateController extends BaseController
 {
     # 商铺分类
-    public function index(){
+    public function index(Request $request){
          //得到所有
-        $cates = ShopCate::all();
+        //$cates = ShopCate::all();
+        $url=$request->query();
+        //收缩所有数据
+        $cateId = $request->get("cate_id");
+        $keyword = $request->get("keyword");
+
+        $query = ShopCate::orderBy("id");
+        if ($keyword !==null){
+            $query->where("name","like","%{$keyword}%");
+        }
+        if ($cateId !== null ) {
+            $query->where("id", $cateId);
+        }
+        $cates = $query->paginate(3);
         //显示视图
-        return view("admin.shopcate.index",compact("cates"));
+        return view("admin.shopcate.index",compact("url","cates"));
     }
 
     #  添加分类

@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">php0620</a>
+            <a class="navbar-brand" style="color: yellow" href="">全球最大点餐平台</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,9 +27,17 @@
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <select name="cate_id" class="form-control" >
+                        <option value="">请选择分类</option>
+                        @foreach($cates as $cate)
+                            <option value="{{$cate->id}}">{{$cate->name}}</option>
+                        @endforeach
+                    </select>
+                    <div class="form-group">
+                        <input type="text" class="form-control"  placeholder="请输入名称" name="keyword" value="{{request()->get("keyword")}}">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

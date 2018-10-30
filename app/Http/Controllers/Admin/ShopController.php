@@ -11,14 +11,27 @@ use Illuminate\Support\Facades\Storage;
 class ShopController extends BaseController
 {
   # 商铺管理首页
-    public function index(){
+    public function index(Request $request){
         // 获取所有商铺
-        $shops = Shop::all();
+//        $shops = Shop::all();
         $cates = ShopCate::all();
         $users = User::all();
 //        dd($shops,$cates,$users);
+        $url=$request->query();
+        //收缩所有数据
+        $cateId = $request->get("cate_id");
+        $keyword = $request->get("keyword");
+
+        $query = Shop::orderBy("id");
+        if ($keyword !==null){
+            $query->where("name","like","%{$keyword}%");
+        }
+        if ($cateId !== null ) {
+            $query->where("cate_id", $cateId);
+        }
+        $shops = $query->paginate(1);
         //  跳转视图
-        return view("admin/shop/index",compact("shops","cates","users"));
+        return view("admin/shop/index",compact("shops","cates","users","url"));
     }
 
     # 商铺审核
@@ -43,5 +56,14 @@ class ShopController extends BaseController
             session()->flash("success","删除成功");
             return redirect() -> route("admin.shop.index");
         }
+    }
+
+    public function xiaxian($id){
+        // 找到当前对象
+        $cate = Shop::findOrfail($id);
+        //dd($shop);
+        $cate -> status = 0;
+        $cate -> save();
+        return back()->with("success", "以切换");
     }
 }

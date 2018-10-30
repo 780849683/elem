@@ -12,38 +12,70 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // 店铺  Shop
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
-    #----  商  户  ----#
+    #---- region 商  户  ----#
         #商户注册
         Route::any("user/reg","UserController@reg")->name("shop.user.reg");
         #商户登录
         Route::any("user/login","UserController@login")->name("shop.user.login");
+        Route::any("user/login0","UserController@login0")->name("shop.user.login0");
+    # endregion
 
-    #----  店铺  ----#
+    #---- region 店铺  ----#
         #添加店铺
         Route::any("shop/add", "ShopController@add")->name("shop.shop.add");
         #显示店铺
         Route::any("shop/index", "ShopController@index")->name("shop.shop.index");
         #修改店铺
         Route::any("shop/edit/{id}", "ShopController@edit")->name("shop.edit");
+        #店铺图片
+        Route::any("shop/upload","ShopController@upload")->name("shop.shop.upload");
+    # endregion
 
-    #----  菜品分类  ----#
+    #---- region  菜品分类  ----#
         # 分类首页
        Route::any("menucate/index", "MenuCateController@index")->name("shop.menucate.index");
+       #  添加品种
+        Route::any("menucate/add", "MenuCateController@add")->name("shop.menucate.add");
+        #  编辑种类
+        Route::any("menucate/edit/{id}", "MenuCateController@edit")->name("shop.menucate.edit");
+        #   删除种类
+        Route::any("menucate/del/{id}", "MenuCateController@del")->name("shop.menucate.del");
+    # endregion
 
-    #----   菜品   ----#
+    #---- region   菜品   ----#
         # 菜品首页
         Route::any("menu/index", "MenuController@index")->name("shop.menu.index");
+        #  添加菜
+        Route::any("menu/add", "MenuController@add")->name("shop.menu.add");
+        #  修改菜
+        Route::any("menu/edit/{id}", "MenuController@edit")->name("shop.menu.edit");
+        #   删除菜
+        Route::any("menu/del/{id}", "MenuController@del")->name("shop.menu.del");
+        #   菜品图片
+        Route::any("menu/upload","MenuController@upload")->name("shop.menu.upload");
+    # endregion
+
+     #----region   活动activ    ----#
+        #  活动首页
+        Route::any("activ/index", "ActivController@index")->name("shop.activ.index");
+        #   添加活动
+        Route::any("activ/add", "ActivController@add")->name("shop.activ.add");
+        #   编辑活动
+        Route::any("activ/edit/{id}", "ActivController@edit")->name("shop.activ.edit");
+        #   删除活动
+        Route::any("activ/del{id}", "ActivController@del")->name("shop.activ.del");
+    # endregion
 });
 
 
 #管理员 后台 Admin
 Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
-    #----  后台管理员  ----#
+    #----region  后台管理员  ----#
         #管理员注册
         Route::any("admin/reg","AdminController@reg")->name("admin.admin.reg");
         #后台登录
@@ -56,22 +88,26 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
         Route::any("admin/index","AdminController@index")->name("admin.admin.index");
         # 编辑管理员
         Route::any("admin/edit","AdminController@edit")->name("admin.admin.edit");
+     #endregion
 
-    #----  店铺管理  ----#
+    #----region  店铺管理  ----#
         # 商铺首页
         Route::any("shop/index","ShopController@index")->name("admin.shop.index");
         # 商铺审核
         Route::any("shop/shenh/{id}","ShopController@shenh")->name("admin.shop.shenh");
         # 删除商铺
         Route::any("shop/del/{id}","ShopController@del")->name("admin.shop.del");
+        Route::any("shop/xiaxian/{id}","ShopController@xiaxian")->name("admin.shop.xiaxian");
+    #endregion
 
-    #----  商户管理  ----#
+    #----region  商户管理  ----#
         #  商户首页
         Route::any("user/index","UserController@index")->name("admin.user.index");
         #  删除商户 ----#
         Route::get("user/del/{id}","UserController@del")->name("admin.user.del");
+    #endregion
 
-    #----  店铺分类 ----#
+    #----region  店铺分类 ----#
         #  分类首页e
         Route::any("shopcate/index","ShopCateController@index")->name("admin.shopcate.index");
         #  添加分类
@@ -83,5 +119,5 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
         #   分类状态
         Route::any("shopcate/shangxian/{id}","ShopCateController@shangxian")->name("admin.shopcate.shangxian");
         Route::any("shopcate/xiaxian/{id}","ShopCateController@xiaxian")->name("admin.shopcate.xiaxian");
-
+    #endregion
 });

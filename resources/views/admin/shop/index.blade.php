@@ -17,11 +17,11 @@
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->name}}</td>
                 <td>{{$shop->shopCate->name}}</td>
-                <td><img src="/{{$shop->img}}" height="30" width="30"></td>
+                <td><img src="{{env("ALIYUN_OSS_URL").$shop->img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>{{$shop->status}}</td>
                 <td>{{$shop->user->name}}</td>
                 <td>
-                    <a href="" class="btn btn-info">下线</a>
+                    <a href="{{route('admin.shop.xiaxian',$shop->id)}}" class="btn btn-warning ">下线</a>
                     {{--<a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除会一并删除用户,确认吗？')">删除</a>--}}
                     <a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger" >删除</a>
                     @if($shop->status===0)
@@ -31,5 +31,5 @@
             </tr>
         @endforeach
     </table>
-
+    {{ $shops->appends($url)->links() }}
 @endsection

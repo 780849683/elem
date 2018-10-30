@@ -11,13 +11,26 @@ use Illuminate\Support\Facades\DB;
 class UserController extends BaseController
 {
    # 商户首页
-    public function index(){
-        $shops = Shop::all();
+    public function index(Request $request){
+        //$shops = Shop::all();
         $cates = ShopCate::all();
         $users = User::all();
-        //dd($shops,$cates,$users);
+
+        $url=$request->query();
+        //收缩所有数据
+        $cateId = $request->get("cate_id");
+        $keyword = $request->get("keyword");
+
+        $query = Shop::orderBy("id");
+        if ($keyword !==null){
+            $query->where("name","like","%{$keyword}%");
+        }
+        if ($cateId !== null ) {
+            $query->where("cate_id", $cateId);
+        }
+        $shops = $query->paginate(1);
         //  跳转视图
-        return view("admin.user.index",compact("shops","cates","users"));
+        return view("admin.user.index",compact("shops","cates","users","url"));
     }
 
     # 商户删除{

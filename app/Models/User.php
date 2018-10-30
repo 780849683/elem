@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Authenticatable
 {
     public function shop(){
-        return $this->hasMany(Shop::class,"user_id");
+        return $this->hasOne(Shop::class,"user_id");
     }
 
     protected $hidden = [

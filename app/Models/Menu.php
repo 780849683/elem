@@ -20,5 +20,5 @@ class Menu extends Authenticateable
     }
 
     public $timestamps = false;
-    protected $fillable=["name","rating","cate_id","price","deser","month_sale","ranting_count","tips","staisfy_count","staisfy_rate","status"];
+    protected $fillable=["cate_id","goods_name","rating","goods_price","shop_id","description","month_sales","rating_count","month_sale","ranting_count","tips","satisfy_count","satisfy_rate","status"];
 }

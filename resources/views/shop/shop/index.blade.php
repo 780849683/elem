@@ -61,7 +61,7 @@
             <tr>
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->name}}</td>
-                <td align="" class="first-cell"><span><img src="/{{$shop->img}}" width="100"  height="50" /></span></td>
+                <td><img src="{{env("ALIYUN_OSS_URL").$shop->img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>@if($shop->brand)
                         <i class="glyphicon glyphicon-ok" style="color: green"></i>
                     @else
@@ -77,7 +77,7 @@
                     @else
                         <i class="glyphicon glyphicon-remove" style="color: red"></i>
                     @endif</td>
-                <td> @if($shop->bao)
+                <td> @if($shop->bao )
                         <i class="glyphicon glyphicon-ok" style="color: green"></i>
                     @else
                         <i class="glyphicon glyphicon-remove" style="color: red"></i>

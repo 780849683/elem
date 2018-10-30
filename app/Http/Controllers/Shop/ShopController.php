@@ -26,7 +26,7 @@ class ShopController extends Controller
             $this->validate($request, [
                 'cate_id' => 'required|integer',
                 'name' => 'required|max:100|unique:shops',
-                'img' => 'required|image',
+              //'img' => 'required|image',
                 'start_send' => 'required|numeric',
                 'send_cost' => 'required|numeric',
                 'notice' => 'string',
@@ -39,7 +39,7 @@ class ShopController extends Controller
             //2.2 设置用户ID
             $data['user_id'] = Auth::user()->id;
             //2.3 处理图片
-            $data['img']=$request->file("img")->store("shop_cate","image");
+            //$data['img']=$request->file("img")->store("shop_cate");
                //var_dump($data);
                //exit;
                //dd($data);
@@ -68,9 +68,10 @@ class ShopController extends Controller
         $shops = Shop::where("user_id",$userId)->get();
         $cates = ShopCate::all();
         $users  = User::find($userId);
-        // 没店铺申请店铺
+       // 查出当前对象有没有店铺
         if (DB::table("shops")->where('user_id',Auth::user()->id)->get()->isEmpty()){
             //dd(Auth::user()->name);
+            // 没店铺申请店铺
             return redirect()->intended(route("shop.shop.add"))->with("success", "您还没有店铺，请申请店铺");
         }
         //显示视图
@@ -87,11 +88,12 @@ class ShopController extends Controller
             // 接收数据
             $data = $request->post();
              //dd($data);
+            // 图片处理
             $img =$request->file("img");
             if ($img){
-                @unlink($shop["img"]);
-                //Storage::delete($shop["img"]);//删除原来的图片
-                $data['img'] = $img->store("shop_cate","image");
+                //@unlink($shop["img"]);
+                Storage::delete($shop->img);//删除原来的图片
+               // $data['img'] = $img->store("shop_cate");
             }
            //dd($img);
             //数据入库
@@ -101,11 +103,30 @@ class ShopController extends Controller
                 return redirect()->intended(route("shop.shop.index"))->with("success", "修改成功");
             }
         }
+        // 获取商铺分类信息
         $cates = ShopCate::all();
         //dd($shop);
+        // 跳转视图
         return view("shop.shop.edit",compact("shop","cates"));
     }
 
+
+    # 创建 webuploader 图片上传方法
+    public function upload(Request $request){
+        //处理上传
+        //dd($request->file("file"));
+        $file=$request->file("file");
+        if ($file){
+            //上传
+            $url=$file->store("shop");
+            /// var_dump($url);
+            //得到真实地址  加 http的址
+            //$url=Storage::url($url);
+            $data['url']=$url;
+            return $data;
+            ///var_dump($url);
+        }
+    }
 
 
 }

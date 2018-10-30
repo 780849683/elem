@@ -1,32 +1,32 @@
 @extends("shop.layouts.main")
 
-@section("title","菜品管理")
+@section("title","菜品首页")
 
 @section("content")
 
 
-{{--
+
 
     <div  class="col-md-4">
-    <a href="{{route("good.add")}}" class="btn btn-info">添加</a>
+    <a href="{{route("shop.menu.add")}}" class="btn btn-info">添加</a>
     </div>
     <div class="col-md-8">
     <form class="form-inline pull-right" method="get">
     <div class="form-group">
-    <select name="class_id" class="form-control" >
+    <select name="cate_id" class="form-control" >
     <option value="">请选择分类</option>
-    @foreach($classgoods as $classgood)
-    <option value="{{$classgood->id}}">{{$classgood->class}}</option>
+    @foreach($cates as $cate)
+    <option value="{{$cate->id}}">{{$cate->name}}</option>
     @endforeach
     </select>
-    </div>
+    {{--</div>
     <div class="form-group">
     <input type="text" class="form-control"  placeholder="最低价" size="5" name="minPrice" value="{{old("minPrice")}}" >
     </div>
     -
     <div class="form-group">
     <input type="text" class="form-control"  placeholder="最高价" size="5" name="maxPrice" value="{{old("maxPrice")}}">
-    </div>
+    </div>--}}
     <div class="form-group">
     <input type="text" class="form-control"  placeholder="请输入名称" name="keyword" value="{{request()->get("keyword")}}">
     </div>
@@ -34,7 +34,7 @@
     </form>
     </div>
     </div>
---}}
+
 
 
     <table class="table" >
@@ -57,32 +57,32 @@
         @foreach($menus as $menu)
             <tr>
                 <td>{{$menu->id}}</td>
-                <td>{{$menu->img}}</td>
-                <td>{{$menu->name}}</td>
+                <td><img src="{{env("ALIYUN_OSS_URL").$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
+                <td>{{$menu->goods_name}}</td>
                 <td>{{$menu->status}}</td>
-                <td>{{$menu->price}}</td>
+                <td>{{$menu->goods_price}}</td>
                 <td>
                     {{$menu->menu_cate->name}}
                     {{--{{}}--}}
                 </td>
-                <td>{{$menu->month_sale}}</td>
-                <td>{{$menu->descr}}</td>
+                <td>{{$menu->month_sales}}</td>
+                <td>{{$menu->description}}</td>
                 <td>{{$menu->tips}}</td>
                 <td>{{$menu->rating}}</td>
                 <td>{{$menu->rating_count}}</td>
-                <td>{{$menu->staisfy_count}}</td>
-                <td>{{$menu->staisfy_rate}}</td>
+                <td>{{$menu->satisfy_count}}</td>
+                <td>{{$menu->satisfy_rate}}</td>
                 <td>
-                    <a href="" class="btn btn-success glyphicon glyphicon-pencil"></a>
+                    <a href="{{route('shop.menu.edit',$menu->id)}}" class="btn btn-success glyphicon glyphicon-pencil"></a>
                     {{--<a href="{{route('good.look',$good->id)}}" class="btn btn-warning glyphicon glyphicon-eye-open"></a>--}}
-                    {{--<a href="{{route('good.del',$good->id)}}" class="btn btn-danger glyphicon glyphicon-trash"></a>--}}
+                    <a href="{{route('shop.menu.del',$menu->id)}}" class="btn btn-danger glyphicon glyphicon-trash"></a>
 
                 </td>
             </tr>
         @endforeach
     </table>
     {{--分页--}}
-    {{--{{$goods->appends(array("class_id"=>$classId,"minPrice"=>$minPrice,"maxPrice"=>$maxPrice,"keyword"=>$keyword))->links()}}--}}
-    {{--{{ $goods->appends($url)->links() }}--}}
+    {{--{{$menus->appends(array("cate_id"=>$cateId,"keyword"=>$keyword))->links()}}--}}
+    {{$menus->appends($url)->links()}}
 
 @endsection

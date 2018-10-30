@@ -30,4 +30,5 @@
             </tr>
         @endforeach
     </table>
+    {{ $shops->appends($url)->links() }}
 @endsection

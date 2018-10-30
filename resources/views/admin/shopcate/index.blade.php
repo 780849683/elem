@@ -30,5 +30,5 @@
             </tr>
         @endforeach
     </table>
-
+    {{ $cates->appends($url)->links() }}
 @endsection

@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+# 商家列表
+Route::get("shop/index","Api\ShopController@index");
+#指定商家
+Route::get("shop/detail","Api\ShopController@detail");

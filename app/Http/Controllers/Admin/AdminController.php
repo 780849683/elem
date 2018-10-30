@@ -75,9 +75,9 @@ class AdminController extends BaseController
                 'password' => 'required|confirmed'
             ]);
             $oldPassword = $request ->post('old_password');
-            // 判断老密码是否正确
+            // 判断旧密码是否正确
             if (Hash::check($oldPassword,$admin->password)){
-                // 老密码正确 设置新密码
+                // 旧密码正确 设置新密码
                 $admin->password = Hash::make($request->post("password"));
                 // 保存
                 $admin ->save();

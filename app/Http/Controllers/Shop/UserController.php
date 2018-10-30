@@ -15,13 +15,13 @@ class UserController extends BaseController
     public function reg(Request $request){
         // 判断提交方式
         if ($request->isMethod("post")){
-            //验证
+            //表单验证 注册信息
             $data = $this->validate($request,[
                 "name" => "required | unique:users",
                 "password" => "required | confirmed",
                 "email" => "required | unique:users"
             ]);
-            //加密
+            //密码加密
             $data["password"] = bcrypt($data["password"]);
             // 提交
             if (User::create($data)){
@@ -45,15 +45,17 @@ class UserController extends BaseController
             // dd($data);
             //验证账号密码
             if (Auth::attempt($data)) {
+                // 匹配当前登录用户有没有商铺
                 if (DB::table("shops")->where('user_id',Auth::user()->id)->get()->isEmpty()){
                       //dd(Auth::user()->name);
                       return redirect()->intended(route("shop.shop.add"))->with("success", "您还没有店铺，请申请店铺");
                   }else{
+                    // 得到当前登录对象 与当前对象的商铺
                     $user = Auth::user();
                     $shop = $user->shop;
-                        if ($shop){
+                        if ($shop){ //商铺有三种状态
                             // -1 禁用  0 审核  1 有
-                            switch ($shop[0]['status']){
+                            switch ($shop['status']){
                                 case -1:// 禁用
                                     Auth::logout();
                                     return back()->withInput()->with("danger","店铺已禁用");
@@ -62,7 +64,7 @@ class UserController extends BaseController
                                     Auth::logout();
                                     return back()->withInput()->with("danger","店铺还在审核中");
                                     break;
-                                case  1:
+                                case  1://正常
                                     return redirect()->route("shop.shop.index")->with("success","登录成功");
                             }
                         }
@@ -75,5 +77,47 @@ class UserController extends BaseController
         return view("shop.user.login");
     }
 
+    public function login0(Request $request)
+    {
+        // 判断提交方式
+        if ($request->isMethod("post")) {
+            // 表单验证
+            $data = $this->validate($request, [
+                'name' => "required",
+                'password' => "required",
+            ]);
+            // dd($data);
+            //验证账号密码
+            if (Auth::attempt($data)) {
+                // 匹配当前登录用户有没有商铺
+                if (DB::table("shops")->where('user_id',Auth::user()->id)->get()->isEmpty()){
+                    //dd(Auth::user()->name);
+                    return redirect()->intended(route("shop.shop.add"))->with("success", "您还没有店铺，请申请店铺");
+                }else{
+                    // 得到当前登录对象 与当前对象的商铺
+                    $user = Auth::user();
+                    $shop = $user->shop;
+                    if ($shop){ //商铺有三种状态
+                        // -1 禁用  0 审核  1 有
+                        switch ($shop['status']){
+                            case -1:// 禁用
+                                Auth::logout();
+                                return back()->withInput()->with("danger","店铺已禁用");
+                                break;
+                            case 0://未审核
+                                Auth::logout();
+                                return back()->withInput()->with("danger","店铺还在审核中");
+                                break;
+                            case  1://正常
+                                return redirect()->route("shop.shop.index")->with("success","登录成功");
+                        }
+                    }
+                }
+            }else{
+                return back()->withInput()->with("danger","用户名或密码错误");
+            }
+        }
 
+        return view("shop.user.login0");
+    }
 }
