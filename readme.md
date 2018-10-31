@@ -1,9 +1,11 @@
 # 10-31 注册登录
+
 1. 建表 member  Models :Member.php  Api/MemberConteroller
 
 2.Public/api.js 写接口
 
 3.api.php 写路由
+
 4.控制器写方法
 ### 短信验证
 5.执行：
@@ -49,9 +51,13 @@ composer require predis/predis
 #  10-29  接口开发
 ### 实现步骤
 1.下载压缩包 dist
+
 2.把解压出来的文件夹下面的 index.html 和 api.js 复制到 public 下面
+
 3.在 resources/views 下面建一个 index.blade.php 文件
+
 4.复制 index.html 中的内容 到  index.blade.php  里面
+
 5.把路由 web.php 里面的  welcome 改成 index
 ~~~
 Route::get('/', function () {
