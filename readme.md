@@ -1,3 +1,49 @@
+# 10-31 注册登录
+1. 建表 member  Models :Member.php  Api/MemberConteroller
+2.Public/api.js 写接口
+3.api.php 写路由
+4.控制器写方法
+### 短信验证
+5.执行：
+~~~
+composer require mrgoon/aliyun-sms
+~~~
+6.把以下代码放入 控制器 的 sms 方法中
+~~~
+$config = [
+        'access_key' => 'your access key',
+        'access_secret' => 'your access secret',
+        'sign_name' => 'your sign name',
+    ];
+
+    $aliSms = new Mrgoon\AliSms\AliSms();
+    $response = $sms->sendSms('phone number', 'tempplate code', ['name'=> 'value in your template'], $config);
+~~~
+
+
+### redis 把验证码存进去
+7.执行：
+~~~
+composer require predis/predis
+~~~
+8.
+~~~
+ /*Redis::set("tel_".$tel,$code);
+        Redis::expire("tel_".$tel,5);*/
+        Redis::setex("tel_".$tel,5,$code);
+        
+        // "tel_".$tel ： 号码
+        //  "5" : 缓存多长时间（单位：秒）
+        //  "$code"  : 验证码
+~~~
+
+
+
+
+
+
+
+
 #  10-29  接口开发
 ### 实现步骤
 1.下载压缩包 dist
