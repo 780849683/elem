@@ -1,6 +1,8 @@
 # 10-31 注册登录
 1. 建表 member  Models :Member.php  Api/MemberConteroller
+
 2.Public/api.js 写接口
+
 3.api.php 写路由
 4.控制器写方法
 ### 短信验证
