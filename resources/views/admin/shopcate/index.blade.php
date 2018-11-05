@@ -23,8 +23,12 @@
                 <td>
                     <a href="/shopcate/edit/{id}" class="btn btn-info" >编辑</a>
                     {{--<a href="{{route('admin.shopcate.del',$shop->id)}}" class="btn btn-danger" onclick="return confirm('删除会一并删除用户,确认吗？')">删除</a>--}}
-                    <a href="{{route('admin.shopcate.shangxian',$cate->id)}}" class="btn btn-success">上线</a>
-                    <a href="{{route('admin.shopcate.xiaxian',$cate->id)}}" class="btn btn-warning ">下线</a>
+                    @if($cate->status===0)
+                        <a href="{{route('admin.shopcate.shangxian',$cate->id)}}" class="btn btn-success">上线</a>
+                    @endif
+                    @if($cate->status===1)
+                        <a href="{{route('admin.shopcate.xiaxian',$cate->id)}}" class="btn btn-warning ">下线</a>
+                    @endif
                     <a href="{{route('admin.shopcate.del',$cate->id)}}" class="btn btn-danger">删除</a>
                 </td>
             </tr>

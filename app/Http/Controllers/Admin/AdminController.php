@@ -8,23 +8,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use function PHPSTORM_META\elementType;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends BaseController
 {
 
-    # 添加管理员
+    # 注册
     public function reg(Request $request){
         // 判断提交方式
         if ($request -> isMethod("post")){
             // 表单验证
             $data = $this -> validate($request,[
                 'name' => "required | unique:admins",
-                'password' => "required",
+                'password' => "required | regex:[[0-9]+]",
             ]);
             //dd($data);
             //$data=$request->post(); 添加不用这个
             // 加密
             $data["password"]=bcrypt($data["password"]);
+            //家保安
+            $data['guard_name'] = "admin";
             if(Admin::create($data))
             {
                 return redirect("admin/login")->with("success","注册成功请登录");
@@ -32,7 +35,6 @@ class AdminController extends BaseController
         }
         return view("admin.admin.reg");
     }
-
 
     # 管理员登录：
     public function login(Request $request){
@@ -53,21 +55,13 @@ class AdminController extends BaseController
         return view("admin.admin.login");
     }
 
-    # 管理员列表
-    public function index(){
-        //获取所有
-        $admins = Admin::all();
-        //跳转视图
-        return view("admin.admin.index",compact("admins"));
-    }
-
-    # 编辑管理员
+    # 改密
     public function edit(Request $request){
         //得到当前用户对象
         $admin = Auth::guard('admin')->user();
-       // dd($admin);
+        // dd($admin);
         // 判断提交方式
-       if ($request ->isMethod("post")){
+        if ($request ->isMethod("post")){
 
             // 表单验证
             $this->validate($request,[
@@ -99,5 +93,80 @@ class AdminController extends BaseController
         //跳转并设置成功提示
         return redirect()->route("admin.admin.login")->with("success", "成功退出");
     }
+
+
+    # 管理员列表
+    public function index(){
+        //获取所有
+        $admins = Admin::all();
+        //dd($roles);
+        //跳转视图
+        return view("admin.admin.index",compact("admins"));
+    }
+
+
+    # 添加
+    public function add(Request $request)
+    {
+        if ($request->isMethod('post')) {
+           $this -> validate($request,[
+                'name' => "required | unique:admins",
+            ]);
+            // dd($request->post('per'));
+            //接收参数
+            $data = $request->post();
+            $data['password'] = bcrypt($data['password']);
+            //创建用户
+            $admin = Admin::create($data);
+            //给用户添加角色 同步角色
+            $admin->syncRoles($request->post('role'));
+            //通过用户找出所有角色
+            // $admin->roles();
+            //跳转并提示
+            return redirect()->route('admin.admin.index')->with('success', '创建' . $admin->name . "成功");
+        }
+
+        //得到所有角色
+        $roles=Role::all();
+        return view('admin.admin.add',compact("roles"));
+    }
+
+   # 编辑
+    public function edit2(Request $request,$id){
+        // 找到id
+        $admins = Admin::find($id);
+        //得到所有角色
+        $roles=Role::all();
+        //dd($roles);
+        if ($request->isMethod('post')) {
+            // dd($request->post('per'));
+            //接收参数
+            $data = $request->post();
+            $data['password'] = bcrypt($data['password']);
+            //创建用户
+            $admins ->update($data);
+            //给用户添加角色 同步角色
+            $admins->syncRoles($request->post('role'));
+            //通过用户找出所有角色
+            // $admin->roles();
+            //跳转并提示
+            return redirect()->route('admin.admin.index')->with('success', '修改' . $admins->name . "成功");
+        }
+
+        return view('admin.admin.edit2',compact("roles","admins"));
+
+    }
+
+    # 删除
+    public function del(Request $request,$id){
+        $admin = Admin::find($id);
+        $admin->delete();
+        return back()->with("success","删除成功");
+    }
+
+
+
+
+
 
 }

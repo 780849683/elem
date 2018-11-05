@@ -22,6 +22,8 @@
                         <li><a href="{{route("shop.menucate.index")}}">菜品分类管理</a></li>
                         <li><a href="{{route("shop.menu.index")}}">菜品管理</a></li>
                         <li><a href="{{route("shop.activ.index")}}">店铺活动</a></li>
+                        <li><a href="{{route("shop.order.index")}}">订单管理</a></li>
+                        {{--<li><a href="">日订单量</a><a href="">月订单量</a></li>--}}
 
                         {{--<li><a href="#">Something else here</a></li>--}}
                         {{--<li role="separator" class="divider"></li>--}}

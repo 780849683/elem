@@ -8,17 +8,21 @@ use App\Http\Controllers\Controller;
 use App\Models\MenuCate;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Storage;
-class ShopController extends Controller
+class ShopController extends BaseController
 {
    public function index(Request $request){
        $keyword = \request()->get("keyword");
        //得到所有店铺 设置状态为1
        if ($keyword != null){
-            $shops =Shop::where("status", 1)->where("name","like","%{$keyword}%")->get();
+            $shops = Shop::where("status", 1)->where("name","like",'%'.$keyword.'%')->get();
        }else{
            $shops = Shop::where("status", 1)->get();
        }
-
+       if ($keyword != null){
+           $m = Menu::where("goods_name","like","%{$keyword}%")->get();
+       }else{
+           $shops = Shop::where("status", 1)->get();
+       }
        //  dump($shops->toArray());
        //追加 距离 和时间
        foreach ($shops as $k => $v) {
@@ -34,6 +38,10 @@ class ShopController extends Controller
            $shops[$k]->distance = rand(1000, 5000);
            $shops[$k]->estimate_time = ceil($shops[$k]['distance'] / rand(100, 150));
            $shops[$k]->discount = rand(1000, 5000);
+           $m =$v->menu;
+           foreach ($m as $k1=>$ms){
+
+           }
        }
 
 //        dd($shops->toArray());
@@ -70,12 +78,11 @@ class ShopController extends Controller
 //           $mm = $cates->toArray();
 //        dd($cates);
            foreach ($cates as $k=>$cate){
-
                $cates[$k]->description=$cate->desc;
                $cates[$k]->is_selected=$cate->is_select;
                $goods=$cate->menu;
                foreach ($goods as $k1=>$good){
-                   $goods[$k1]->goods_img=env("ALIYUN_OSS_URL").$good->goods_img;
+                   //$goods[$k1]->goods_img=env("ALIYUN_OSS_URL").$good->goods_img;
                }
                $cates[$k]->goods_list=$goods;
 

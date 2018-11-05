@@ -7,8 +7,12 @@
 
 
 
-    <div  class="col-md-4">
+    <div  class="col-md-2">
     <a href="{{route("shop.menu.add")}}" class="btn btn-info">添加</a>
+    </div>
+    <div  class="col-md-2">
+    <a href="{{route("shop.order.mday")}}" class="btn btn-info">日销量</a>
+    <a href="" class="btn btn-info">月销量</a>
     </div>
     <div class="col-md-8">
     <form class="form-inline pull-right" method="get">
@@ -57,7 +61,7 @@
         @foreach($menus as $menu)
             <tr>
                 <td>{{$menu->id}}</td>
-                <td><img src="{{env("ALIYUN_OSS_URL").$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
+                <td><img src="{{$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>{{$menu->goods_name}}</td>
                 <td>{{$menu->status}}</td>
                 <td>{{$menu->goods_price}}</td>

@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get("test",function (){
+   return \Illuminate\Support\Facades\Cache::get("tel_");
+});
+
+
 // 店铺  Shop
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
     #---- region 商  户  ----#
@@ -58,17 +63,44 @@ Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
         Route::any("menu/del/{id}", "MenuController@del")->name("shop.menu.del");
         #   菜品图片
         Route::any("menu/upload","MenuController@upload")->name("shop.menu.upload");
+       /* #   菜品日销量
+        Route::any("orderdetail/day","OrderDetailController@day")->name("shop.orderdetail.day");
+        #   菜品月销量
+        Route::any("orderdetail/mouth","OrderDetailController@mouth")->name("shop.orderdetail.mouth");*/
+
+    #   菜品日销量
+    Route::any("order/mday","OrderController@mday")->name("shop.order.mday");
+
     # endregion
 
      #----region   活动activ    ----#
-        #  活动首页
-        Route::any("activ/index", "ActivController@index")->name("shop.activ.index");
-        #   添加活动
-        Route::any("activ/add", "ActivController@add")->name("shop.activ.add");
-        #   编辑活动
-        Route::any("activ/edit/{id}", "ActivController@edit")->name("shop.activ.edit");
-        #   删除活动
-        Route::any("activ/del{id}", "ActivController@del")->name("shop.activ.del");
+    #  活动首页
+    Route::any("activ/index", "ActivController@index")->name("shop.activ.index");
+    #   添加活动
+    Route::any("activ/add", "ActivController@add")->name("shop.activ.add");
+    #   编辑活动
+    Route::any("activ/edit/{id}", "ActivController@edit")->name("shop.activ.edit");
+    #   删除活动
+    Route::any("activ/del{id}", "ActivController@del")->name("shop.activ.del");
+    # endregion
+
+    #----region   订单管理 order    ----#
+    #  订单首页
+    Route::any("order/index", "OrderController@index")->name("shop.order.index");
+    #  订单查看
+    Route::any("order/look/{id}", "OrderController@look")->name("shop.order.look");
+    #  取消
+    Route::any("order/no/{id}", "OrderController@no")->name("shop.order.no");
+    #   发货
+    Route::any("order/send/{id}", "OrderController@send")->name("shop.order.send");
+    #   确认
+    Route::any("order/ok/{id}", "OrderController@ok")->name("shop.order.ok");
+    #   删除
+    Route::any("order/del/{id}", "OrderController@del")->name("shop.order.del");
+    #  日订单量
+    Route::any("order/day", "OrderController@day")->name("shop.order.day");
+    #  月订单量
+    Route::any("order/mouth", "OrderController@mouth")->name("shop.order.mouth");
     # endregion
 });
 
@@ -78,6 +110,8 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
     #----region  后台管理员  ----#
         #管理员注册
         Route::any("admin/reg","AdminController@reg")->name("admin.admin.reg");
+    #管理员注册
+    Route::any("admin/add","AdminController@add")->name("admin.admin.add");
         #后台登录
         Route::any("admin/login","AdminController@login")->name("admin.admin.login");
         #退出登录
@@ -88,6 +122,11 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
         Route::any("admin/index","AdminController@index")->name("admin.admin.index");
         # 编辑管理员
         Route::any("admin/edit","AdminController@edit")->name("admin.admin.edit");
+        Route::any("admin/edit2/{id}","AdminController@edit2")->name("admin.admin.edit2");
+        # 查看
+        Route::any("admin/look/{id}","AdminController@look")->name("admin.admin.look");
+        # 删除
+        Route::any("admin/del/{id}","AdminController@del")->name("admin.admin.del");
      #endregion
 
     #----region  店铺管理  ----#
@@ -120,4 +159,26 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
         Route::any("shopcate/shangxian/{id}","ShopCateController@shangxian")->name("admin.shopcate.shangxian");
         Route::any("shopcate/xiaxian/{id}","ShopCateController@xiaxian")->name("admin.shopcate.xiaxian");
     #endregion
+
+    # region 角色
+    #  首页
+    Route::any("role/index","RoleController@index")->name("admin.role.index");
+    #  添加角色
+    Route::any("role/add","RoleController@add")->name("admin.role.add");
+    #  编辑角色
+    Route::any("role/edit/{id}","RoleController@edit")->name("admin.role.edit");
+    #  s删除角色
+    Route::any("role/del/{id}","RoleController@del")->name("admin.role.del");
+    # endregion
+
+    # region 权限
+    #  首页
+    Route::any("per/index","PerController@index")->name("admin.per.index");
+    #  添加权限
+    Route::any("per/add","PerController@add")->name("admin.per.add");
+    #  编辑权限
+    Route::any("per/edit/{id}","PerController@edit")->name("admin.per.edit");
+    #  删除
+    Route::any("per/del/{id}","PerController@del")->name("admin.per.del");
+    # endregion
 });

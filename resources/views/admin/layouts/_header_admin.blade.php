@@ -33,11 +33,11 @@
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <select name="cate_id" class="form-control" >
-                        <option value="">请选择分类</option>
-                        @foreach($cates as $cate)
-                            <option value="{{$cate->id}}">{{$cate->name}}</option>
-                        @endforeach
+                    {{--<select name="cate_id" class="form-control" >--}}
+                        {{--<option value="">请选择分类</option>--}}
+                        {{--@foreach($cates as $cate)--}}
+                            {{--<option value="{{$cate->id}}">{{$cate->name}}</option>--}}
+                        {{--@endforeach--}}
                     </select>
                     <div class="form-group">
                         <input type="text" class="form-control"  placeholder="请输入名称" name="keyword" value="{{request()->get("keyword")}}">
