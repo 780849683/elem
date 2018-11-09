@@ -19,6 +19,20 @@ Route::get("test",function (){
    return \Illuminate\Support\Facades\Cache::get("tel_");
 });
 
+Route::get("test", function () {
+    //$content = 'test';//邮件内容
+    $shopName="互联网学院";
+    $to = '780849683@qq.com';//收件人
+    $subject = $shopName.' 审核通知';//邮件标题
+    \Illuminate\Support\Facades\Mail::send(
+        'emails.shop',
+        compact("shopName"),
+        function ($message) use($to, $subject) {
+            $message->to($to)->subject($subject);
+        });
+});
+
+
 
 // 店铺  Shop
 Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
@@ -102,6 +116,18 @@ Route::domain("shop.elem.test")->namespace("Shop" )->group(function () {
     #  月订单量
     Route::any("order/mouth", "OrderController@mouth")->name("shop.order.mouth");
     # endregion
+
+    # region 平台活动
+    # 首页
+    Route::any("event/index", "EventController@index")->name("shop.event.index");
+    # 查看
+    Route::any("event/look/{id}", "EventController@look")->name("shop.event.look");
+
+
+    #  报名
+    Route::any("eventuser/baom/{id}", "EventUserController@baom")->name("shop.eventuser.baom");
+    #endregion
+
 });
 
 
@@ -181,4 +207,35 @@ Route::domain("admin.elem.test")->namespace("Admin")->group(function (){
     #  删除
     Route::any("per/del/{id}","PerController@del")->name("admin.per.del");
     # endregion
+
+    # region 导航栏
+    # 首页
+    Route::any("nav/index", "NavController@index")->name("admin.nav.index");
+    # 添加
+    Route::any("nav/add", "NavController@add")->name("admin.nav.add");
+    # endregion
+
+    # region 平台活动
+    # 首页
+    Route::any("event/index", "EventController@index")->name("admin.event.index");
+    # 查看
+    Route::any("event/look/{id}", "EventController@look")->name("admin.event.look");
+    # 抽奖
+    Route::any("event/cj/{id}", "EventController@cj")->name("admin.event.cj");
+    # 添加活动
+    Route::any("event/add", "EventController@add")->name("admin.event.add");
+    # 活动修改
+    Route::any("event/edit/{id}", "EventController@edit")->name("admin.event.edit");
+    # 删除
+    Route::any("event/del/{id}", "EventController@del")->name("admin.event.del");
+
+    # 活动奖品 首页
+    Route::any("eventprize/index", "EventPrizeController@index")->name("admin.eventprize.index");
+    # 活动奖品 添加
+    Route::any("eventprize/add", "EventPrizeController@add")->name("admin.eventprize.add");
+    # 活动奖品 修改
+    Route::any("eventprize/edit/{id}", "EventPrizeController@edit")->name("admin.eventprize.edit");
+    # 活动奖品 删除
+    Route::any("eventprize/del/{id}", "EventPrizeController@del")->name("admin.eventprize.del");
+    #endregion
 });

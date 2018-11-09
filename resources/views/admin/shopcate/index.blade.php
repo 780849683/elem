@@ -1,5 +1,5 @@
-@extends("admin.layouts.main")
-@section("title","管理员列表")
+@extends("admin.layouts.main_admin")
+@section("title","店铺分类首页")
 @section("content")
 
     <a href="/shopcate/add" class="btn btn-primary">添加</a>

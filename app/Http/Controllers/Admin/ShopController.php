@@ -29,7 +29,7 @@ class ShopController extends BaseController
         if ($cateId !== null ) {
             $query->where("cate_id", $cateId);
         }
-        $shops = $query->paginate(1);
+        $shops = $query->paginate(3);
         //  跳转视图
         return view("admin/shop/index",compact("shops","cates","users","url"));
     }
@@ -38,9 +38,19 @@ class ShopController extends BaseController
     public function shenh($id){
         // 找到当前对象
         $shop = Shop::findOrfail($id);
-        //dd($shop);
+        //dd($shop->user->email);
         $shop -> status = 1;
         $shop -> save();
+        //发送邮件
+        $shopName=$shop->name;
+        $to = $shop->user->email;//收件人
+        $subject = '店铺审核通知';//邮件标题
+        \Illuminate\Support\Facades\Mail::send(
+            'email.shop',
+            compact("shopName"),
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            });
         return back()->with("success", "通过审核");
     }
 

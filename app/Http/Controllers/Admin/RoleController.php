@@ -52,9 +52,9 @@ class RoleController extends BaseController
         //判定提交方式
         if ($request->isMethod("post")){
             // 接收参数 并处理数据
-             $this -> validate($request,[
+            /* $this -> validate($request,[
                 'name' => "required | unique:roles",
-            ]);
+            ]);*/
             $pers=$request->post('pers');
             // 添加角色
            $roles->update([
@@ -65,6 +65,11 @@ class RoleController extends BaseController
             if ($pers){
                 $roles->syncPermissions($pers);
             }
+           /* //还给给角色添加权限 $role->syncPermissions(['权限名1','权限名2']);
+            $role->syncPermissions($request->post('per'));*/
+
+            //跳转并提示
+            return redirect()->route('admin.role.index')->with('success', '编辑' . $roles->name . "成功");
         }
         // 找到所有权限
         $pers = Permission::all();

@@ -75,14 +75,14 @@ class MemberController extends BaseController
         // 验证码发手机
         // TODO
         $config = [
-            'access_key' => "LTAIO7sTwdwlGIzJ",//appID
-            'access_secret' => "zMroqjLKuMFFNBe4bifNJ6bUvE0zf4",// appKey
-            'sign_name' => "技术分享",// 签名
+            'access_key' => "LTAI5ccKNuSmXG1z",//appID
+            'access_secret' => "K4udFHYu1sSkJ9SZsLCvWIOIy5fwAB",// appKey
+            'sign_name' => "别闹好好学",// 签名
         ];
 
         $sms = new AliSms();
         //$response = $sms->sendSms('phone number', 'tempplate code', ['name'=> 'value in your template'], $config);
-        $response = $sms->sendSms($tel, 'SMS_149422353', ['code'=> $code], $config);// 'code' 是模板里的 $code 是上面是生成的
+        $response = $sms->sendSms($tel, 'SMS_150575093', ['code'=> $code], $config);// 'code' 是模板里的 $code 是上面是生成的
         // 5. 返回
         if ($response){
             $data = [

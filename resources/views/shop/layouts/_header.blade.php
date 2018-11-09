@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">关于我们 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">帮助</a></li>
+                <li><a href="{{route("shop.event.index")}}">平台活动</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -44,7 +45,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="">修改密码</a></li>   {{--{{route("shop.user.edit")}}--}}
-                            <li><a href="}">注销...</a></li>    {{--{{ route("shop.user.logout")}--}}
+                            <li><a href="">注销...</a></li>    {{--{{ route("shop.user.logout")}--}}
                         </ul>
             </ul>
         </div><!-- /.navbar-collapse -->

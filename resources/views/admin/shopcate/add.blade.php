@@ -1,5 +1,5 @@
-@extends("admin.layouts.main_login")
-
+@extends("admin.layouts.main_admin")
+@section("title","添加店铺分类")
 @section("content")
     <form class="form-horizontal" action="" method="post">
         {{csrf_field()}}

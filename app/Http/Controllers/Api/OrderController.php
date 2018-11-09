@@ -12,7 +12,7 @@ use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use Mrgoon\AliSms\AliSms;
 class OrderController extends BaseController
 {
     public function add(Request $request)
@@ -197,9 +197,13 @@ class OrderController extends BaseController
         // 得到当前订单id
         $order = Order::find($request->get('id'));
         //dd($order->total);
+        //dd($order->order_code);
         $member = Member::find($order->member_id);
+        $shop = Shop::find($order->shop_id);
+        //dd($shop->user->email);
         //$money = $order->member->money;
-//       dd($member->toArray());
+       //dd($member->toArray());
+        //dd($member->tel);
         //判断钱够不够
         if ($order->total > $member->money){
             return [
@@ -215,13 +219,46 @@ class OrderController extends BaseController
             // 更改订单状态
             $order->order_status = 1;
             $order->save();
-
         });
-        return [
-          'status' => 'true',
-          'message'=>"支付成功"
+
+
+        $orderCode = $order->order_code;//订单号
+        //dd($orderCode);
+        $tole = $order->total;//金额
+        $name = $order->name;//收货人
+        $tel = $order->tel;//电话
+        $address = $order->provence . $order->city . $order->area . $order->detail_address;//地址
+        //dd($address);
+        $to = $shop->user->email;//收件人
+        $subject = '新订单通知';//邮件标题
+        \Illuminate\Support\Facades\Mail::send(
+            'email.order',
+            compact("orderCode","tole","name","tel","address"),
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            });
+
+        $tel = $member->tel;
+        //dd($tel);
+        $stel = $order->tel;
+        $name = $order ->name;
+        $config = [
+            'access_key' => "LTAI5ccKNuSmXG1z",//appID
+            'access_secret' => "K4udFHYu1sSkJ9SZsLCvWIOIy5fwAB",// appKey
+            'sign_name' => "别闹好好学",// 签名
         ];
 
+        $sms = new AliSms();
+        //$response = $sms->sendSms('phone number', 'tempplate code', ['name'=> 'value in your template'], $config);
+        $response = $sms->sendSms($tel, 'SMS_150575498', ['consignee'=> $name,'number'=>$stel], $config);// 'code' 是模板里的 $code 是上面是生成的
+        //dd($response);
+
+        if ($response){
+            return [
+                'status' => 'true',
+                'message'=>"支付成功"
+            ];
+        }
 
     }
 

@@ -15,7 +15,7 @@
              <label class="col-sm-2 control-label">权限</label>
              <div class="col-sm-10">
                  @foreach($pers as $per)
-                     <input type="checkbox" name="pers[]" value="{{$per->id}}">{{$per->intro}}
+                     <input type="checkbox" name="pers[]" value="{{$per->name}}" @if($roles->hasPermissionTo($per->name)) checked @endif>{{$per->intro}}
                  @endforeach
              </div>
          </div>

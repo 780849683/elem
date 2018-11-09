@@ -1,7 +1,5 @@
-@extends("admin.layouts.main")
-
+@extends("admin.layouts.main_admin")
 @section("title","商户首页")
-
 @section("content")
     <table class="table table-bordered">
         <tr>
