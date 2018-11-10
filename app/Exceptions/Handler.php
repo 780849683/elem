@@ -54,12 +54,12 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-/*    protected function unauthenticated($request, AuthenticationException $exception)
+    protected function unauthenticated($request, AuthenticationException $exception)
     {
        if ($request->expectsJson()) {
             return response()->json(['message' => $exception->getMessage()], 401);
         } else {
-//            return in_array('admin', $exception->guards()) ? redirect()->guest(route("admin.login")) : redirect()->guest(route('user.login'));
+            return in_array('admin', $exception->guards()) ? redirect()->guest(route("admin.admin.login"))->with("danger","没有权限请登录") : redirect()->guest(route('shop.user.login'))->with("danger","没有权限请登录");
         }
-    }*/
+    }
 }

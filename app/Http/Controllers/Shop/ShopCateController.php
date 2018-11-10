@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ShopCateController extends Controller
+class ShopCateController extends BaseController
 {
     //
 }

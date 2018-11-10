@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class ShopController extends Controller
+class ShopController extends BaseController
 {
     #  申请店铺
     public function add(Request $request){

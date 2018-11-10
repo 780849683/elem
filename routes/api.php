@@ -63,4 +63,11 @@ Route::any("order/index","Api\OrderController@index");
 Route::any("order/detail","Api\OrderController@detail");
 #  订单支付
 Route::any("order/pay","Api\OrderController@pay");
+#  微信支付
+Route::any("order/wxPay","Api\OrderController@wxPay");
+#  订单状态
+Route::any("order/status","Api\OrderController@status");
+#  异步通知
+Route::post("order/ok","Api\OrderController@ok");
+
 #  endregion
